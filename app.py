@@ -2,15 +2,12 @@
 import numpy as np
 import pandas as pd
 import streamlit as st
-st.title('Khách hàng sẽ rời bỏ dịch vụ viễn thông?')
-
 import pickle
+
 filename = 'model.sav'
 model = pickle.load(open(filename, 'rb'))
 
-
-
-######
+st.title('Khách hàng sẽ rời bỏ dịch vụ viễn thông?')
 
 gender=st.selectbox('Giới tính :' , ['Nam', 'Nữ'])
 seniorCitizen=st.selectbox('Người cao tuổi :' , ['Có', 'Không'])
@@ -65,8 +62,8 @@ def predict():
     row = np.array([param_gender, param_SeniorCitizen, param_Partner, param_Dependents, param_tenure, param_PhoneService, param_MultipleLines, param_OnlineSecurity, param_OnlineBackup, param_DeviceProtection, param_TechSupport, param_StreamingTV, param_StreamingMovies, param_PaperlessBilling, param_MonthlyCharges, param_TotalCharges, param_InternetService_DSL, param_InternetService_Fiber, param_InternetService_No, param_Contract_Month, param_Contract_One, param_Contract_Two, param_PaymentMethod_Bank, param_PaymentMethod_Credit, param_PaymentMethod_Electronic, param_PaymentMethod_Mailed])
     
     columns = ['gender', 'SeniorCitizen', 'Partner', 'Dependents', 'tenure', 'PhoneService', 'MultipleLines', 'OnlineSecurity', 'OnlineBackup', 'DeviceProtection', 'TechSupport', 'StreamingTV', 'StreamingMovies', 'PaperlessBilling', 'MonthlyCharges', 'TotalCharges', 'InternetService_DSL', 'InternetService_Fiber optic', 'InternetService_No', 'Contract_Month-to-month', 'Contract_One year', 'Contract_Two year', 'PaymentMethod_Bank transfer (automatic)', 'PaymentMethod_Credit card (automatic)', 'PaymentMethod_Electronic check', 'PaymentMethod_Mailed check']
-    sample_test = pd.DataFrame([row], columns = columns)
-    prediction = model.predict(sample_test)
+    sample = pd.DataFrame([row], columns = columns)
+    prediction = model.predict(sample)
 
     if prediction[0] == 1: 
         st.error('Khách hàng sẽ rời bỏ')    
